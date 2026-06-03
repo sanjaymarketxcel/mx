@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Status Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section class="hero-card">
+      <div>
+        <p class="eyebrow">Portfolio Command Center</p>
+        <h1>Project Status Dashboard</h1>
+        <p class="hero-copy">Track delivery health, update project status, and instantly understand how many projects are on time, delayed, or at risk.</p>
+      </div>
+      <button class="primary-action" id="focusProjectForm">+ Add New Project</button>
+    </section>
+
+    <section class="stats-grid" aria-label="Project status summary">
+      <article class="stat-card ontime">
+        <span class="stat-label">On Time</span>
+        <strong id="onTimeCount">0</strong>
+        <p>Projects progressing as planned</p>
+      </article>
+      <article class="stat-card risk">
+        <span class="stat-label">At Risk</span>
+        <strong id="riskCount">0</strong>
+        <p>Projects that need attention</p>
+      </article>
+      <article class="stat-card delayed">
+        <span class="stat-label">Delayed</span>
+        <strong id="delayedCount">0</strong>
+        <p>Projects past expected progress</p>
+      </article>
+      <article class="stat-card total">
+        <span class="stat-label">Total Projects</span>
+        <strong id="totalCount">0</strong>
+        <p>Active work in this dashboard</p>
+      </article>
+    </section>
+
+    <section class="dashboard-grid">
+      <article class="panel chart-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Status Overview</p>
+            <h2>Portfolio health</h2>
+          </div>
+          <span class="updated-pill" id="lastUpdated">Updated today</span>
+        </div>
+        <div class="chart-wrap" aria-label="Project status distribution">
+          <div class="donut-chart" id="statusDonut" role="img" aria-label="Project status chart"></div>
+          <div class="legend" id="statusLegend"></div>
+        </div>
+      </article>
+
+      <article class="panel form-panel" id="projectFormPanel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Manage Projects</p>
+            <h2 id="formTitle">Add new project</h2>
+          </div>
+        </div>
+        <form id="projectForm">
+          <input type="hidden" id="projectId" />
+          <label>
+            Project name
+            <input type="text" id="projectName" placeholder="Example: Mobile App Launch" required />
+          </label>
+          <label>
+            Owner
+            <input type="text" id="projectOwner" placeholder="Example: Priya Shah" required />
+          </label>
+          <div class="form-row">
+            <label>
+              Status
+              <select id="projectStatus" required>
+                <option value="On Time">On Time</option>
+                <option value="At Risk">At Risk</option>
+                <option value="Delayed">Delayed</option>
+              </select>
+            </label>
+            <label>
+              Progress
+              <input type="number" id="projectProgress" min="0" max="100" value="50" required />
+            </label>
+          </div>
+          <label>
+            Due date
+            <input type="date" id="projectDueDate" required />
+          </label>
+          <label>
+            Notes
+            <textarea id="projectNotes" rows="3" placeholder="Add the latest update, blocker, or next milestone"></textarea>
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="primary-action" id="saveProjectButton">Save Project</button>
+            <button type="button" class="secondary-action" id="resetFormButton">Clear</button>
+          </div>
+        </form>
+      </article>
+    </section>
+
+    <section class="panel table-panel">
+      <div class="panel-heading table-heading">
+        <div>
+          <p class="eyebrow">Project List</p>
+          <h2>Update status quickly</h2>
+        </div>
+        <label class="filter-control">
+          Filter
+          <select id="statusFilter">
+            <option value="All">All Projects</option>
+            <option value="On Time">On Time</option>
+            <option value="At Risk">At Risk</option>
+            <option value="Delayed">Delayed</option>
+          </select>
+        </label>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Project</th>
+              <th>Owner</th>
+              <th>Status</th>
+              <th>Progress</th>
+              <th>Due Date</th>
+              <th>Latest Update</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="projectTableBody"></tbody>
+        </table>
+      </div>
+      <p class="empty-state" id="emptyState" hidden>No projects match this filter.</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
